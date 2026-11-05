@@ -1,0 +1,148 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: "JetBrains Mono", ui-monospace, monospace;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-display: "Space Mono", "JetBrains Mono", ui-monospace, monospace;
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 2px);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-sand: var(--sand);
+  --color-surface: var(--surface);
+  --color-band: var(--band);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-sidebar: var(--card);
+  --color-sidebar-foreground: var(--foreground);
+  --color-sidebar-primary: var(--primary);
+  --color-sidebar-primary-foreground: var(--primary-foreground);
+  --color-sidebar-accent: var(--secondary);
+  --color-sidebar-accent-foreground: var(--foreground);
+  --color-sidebar-border: var(--border);
+  --color-sidebar-ring: var(--ring);
+}
+
+:root {
+  --radius: 0.25rem;
+  --background: oklch(0.165 0.012 50);
+  --surface: oklch(0.19 0.014 50);
+  --foreground: oklch(0.955 0.01 75);
+  --card: oklch(0.205 0.016 52);
+  --card-foreground: oklch(0.955 0.01 75);
+  --popover: oklch(0.205 0.016 52);
+  --popover-foreground: oklch(0.955 0.01 75);
+  --primary: oklch(0.7 0.12 58);
+  --primary-foreground: oklch(0.17 0.012 50);
+  --secondary: oklch(0.26 0.02 55);
+  --secondary-foreground: oklch(0.955 0.01 75);
+  --muted: oklch(0.24 0.018 55);
+  --muted-foreground: oklch(0.72 0.05 75);
+  --sand: oklch(0.78 0.06 78);
+  --accent: oklch(0.28 0.03 58);
+  --accent-foreground: oklch(0.955 0.01 75);
+  --band: oklch(0.33 0.05 60);
+  --success: oklch(0.72 0.14 150);
+  --destructive: oklch(0.63 0.2 27);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.3 0.02 55);
+  --input: oklch(0.32 0.022 55);
+  --ring: oklch(0.7 0.12 58);
+  --chart-1: oklch(0.7 0.12 58);
+  --chart-2: oklch(0.78 0.06 78);
+  --chart-3: oklch(0.6 0.1 40);
+  --chart-4: oklch(0.72 0.14 150);
+  --chart-5: oklch(0.55 0.05 60);
+  --shadow-glow: 0 10px 40px -12px color-mix(in oklab, var(--primary) 45%, transparent);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html {
+    color-scheme: dark;
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    letter-spacing: 0.02em;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
+  }
+}
+
+@utility shimmer {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--color-muted);
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in oklab, var(--color-sand) 14%, transparent),
+      transparent
+    );
+    animation: shimmer 1.4s infinite;
+  }
+}
+
+@utility icon-mask {
+  display: inline-block;
+  background-color: currentColor;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+}
+
+@utility shadow-glow {
+  box-shadow: var(--shadow-glow);
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shimmer::after {
+    animation: none;
+  }
+}
